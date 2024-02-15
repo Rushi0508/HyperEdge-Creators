@@ -26,7 +26,7 @@ function page() {
   return (
     <>
     <div className="border-[1px] border-gray-300 rounded-2xl">
-      <Header user={user}/>
+      <Header user={user} setUser={setUser}/>
       <div className="flex">
         <div className="w-[30%] border-r-[1px] border-gray-300">
           <Sidebar user={user}/>
