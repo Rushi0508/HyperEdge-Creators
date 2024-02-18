@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider  = "mongodb"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum Unit {
@@ -49,8 +50,8 @@ model Creator {
   campaignInvites   Campaign[]      @relation(fields: [campaignInviteIds], references: [id])
   proposalIds       String[]        @db.ObjectId
   proposals         Proposal[]
-  collborations     Collaboration[]
-  collborationIds   String[]        @db.ObjectId
+  collaborations    Collaboration[]
+  collaborationIds  String[]        @db.ObjectId
   Testimonial       Testimonial[]
   Portfolio         Portfolio[]
 }
@@ -127,6 +128,9 @@ model Brand {
   website         String?
   logo            String?
   industry        String?
+  country         String?
+  state           String?
+  city            String?
   emailVerified   Boolean?        @default(false)
   phoneVerified   Boolean?        @default(false)
   campaigns       Campaign[]
@@ -148,8 +152,8 @@ model Campaign {
   endDate         DateTime?
   feesFrom        String?
   feesTo          String?
-  unit            Unit
-  type            String?
+  type            Unit?
+  targetCategory  String[]
   collaborators   Creator[]          @relation(fields: [collaboratorIds], references: [id])
   collaboratorIds String[]           @db.ObjectId
   status          CampaignStatus
@@ -157,6 +161,7 @@ model Campaign {
   proposals       Proposal[]
   proposalIds     String[]           @db.ObjectId
   createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
   Collaboration   Collaboration[]
 }
 
