@@ -32,15 +32,12 @@ function Navbar() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Find Brands</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col pl-5 pr-10">
-                    <NavigationMenuLink className="mt-3">
-                      Find Brands
+                  <NavigationMenuContent className="flex p-1 flex-col">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/'}>Find Brands</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="mt-3">
-                      Proposals
-                    </NavigationMenuLink>
-                    <NavigationMenuLink className="my-3">
-                      Profile
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/profile'}>Profile</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -50,12 +47,12 @@ function Navbar() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>My Work</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col pl-5 pr-10">
-                    <NavigationMenuLink className="mt-3">
-                      My Work
+                  <NavigationMenuContent className="flex flex-col p-1">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/my-work'}>My Work</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="my-3">
-                      All Campaigns
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/campaigns'}>All Campaigns</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -65,14 +62,14 @@ function Navbar() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col pl-5 pr-10">
-                    <NavigationMenuLink className="mt-3">
+                  <NavigationMenuContent className="flex flex-col p-1">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
                       Overview
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="mt-3">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
                       My Stats
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="my-3">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
                       Transaction History
                     </NavigationMenuLink>
                   </NavigationMenuContent>
@@ -112,15 +109,14 @@ function Navbar() {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div
-                className={`${
-                  profileMenu ? "visible" : "hidden"
-                } pl-5 pr-10 absolute right-0 top-10 border-2 border-gray-200 bg-white rounded-md`}
+                className={`${profileMenu ? "visible" : "hidden"
+                  } pl-5 pr-10 absolute right-0 top-10 border-2 border-gray-200 bg-white rounded-md`}
               >
                 <ul className="whitespace-nowrap text-left ">
                   <Link href={"/profile"}>
                     <li className="mt-3 hover:text-purple-500">Profile</li>
                   </Link>
-                  <li onClick={async()=>{await signOut({redirect: false});router.push('/login')}} className="my-3 hover:text-purple-500">Logout</li>
+                  <li onClick={async () => { await signOut({ redirect: false }); router.push('/login') }} className="my-3 hover:text-purple-500">Logout</li>
                 </ul>
               </div>
             </div>
