@@ -4,10 +4,13 @@ import CampaignBox from './components/CampaignBox';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import Loading from './loading';
+import CampaignSheet from './components/CampaignSheet';
 
 function page() {
   const [campaigns, setCampaigns] = useState<any>(null);
-  const [dataLoading, setDataLoading] = useState(true)
+  const [dataLoading, setDataLoading] = useState(true);
+  const [campaign, setCampaign] = useState(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
   useEffect(() => {
     async function fetchCreators() {
       setDataLoading(true)
@@ -31,9 +34,10 @@ function page() {
     <>
       {
         campaigns?.map((campaign: any, index: any) => (
-          <CampaignBox key={index} campaign={campaign} />
+          <CampaignBox key={index} campaign={campaign} setSheetOpen={setSheetOpen} setCampaign={setCampaign} />
         ))
       }
+      <CampaignSheet sheetOpen={sheetOpen} setSheetOpen={setSheetOpen} setCampaign={setCampaign} campaign={campaign} />
     </>
   )
 }

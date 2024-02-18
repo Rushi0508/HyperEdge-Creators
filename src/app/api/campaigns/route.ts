@@ -22,6 +22,15 @@ export async function POST(req: Request){
                         }
                     ]
                 },
+                include:{
+                    brand:{
+                        select:{
+                            id:true,
+                            logo:true,
+                            name: true
+                        }
+                    }
+                },
                 cacheStrategy:{
                     ttl: 60,
                     swr: 10,
