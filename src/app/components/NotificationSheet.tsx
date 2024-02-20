@@ -6,6 +6,7 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 import React, { useEffect, useState } from 'react'
 import NotiBox from "./NotiBox";
@@ -14,11 +15,13 @@ import CampaignSheet from "../(site)/components/CampaignSheet";
 
 function NotificationSheet({ setNotiScreen, notiScreen }: any) {
     const [collaborations, setCollaborations] = useState<any>([]);
+    const [dataLoading, setDataLoading] = useState(true);
     const fetchData = async () => {
         const { data } = await axios.get('/api/notifications');
         if (data.hasOwnProperty('success')) {
             setCollaborations(data.collaborations);
         }
+        setDataLoading(false)
     }
     useEffect(() => {
         fetchData();
@@ -34,11 +37,12 @@ function NotificationSheet({ setNotiScreen, notiScreen }: any) {
                         <SheetTitle className="tracking-wide">Notifications</SheetTitle>
                     </SheetHeader>
                     {
-                        collaborations && collaborations.length > 0 ?
-                            collaborations.map((c: any) => (
-                                <NotiBox setSheetOpen={setSheetOpen} collaboration={c} setCampaign={setCampaign} />
-                            )) :
-                            <SheetDescription>No notifications</SheetDescription>
+                        dataLoading ? <div className="flex justify-center h-[50vh] items-center"><AiOutlineLoading3Quarters className="w-8 h-8 animate-spin" /></div> :
+                            collaborations && collaborations.length > 0 ?
+                                collaborations.map((c: any) => (
+                                    <NotiBox fetchData={fetchData} setSheetOpen={setSheetOpen} collaboration={c} setCampaign={setCampaign} />
+                                )) :
+                                <SheetDescription className="flex justify-center h-[50vh] items-center text-sm">No notifications</SheetDescription>
                     }
                 </SheetContent>
             </Sheet>
