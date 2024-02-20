@@ -3,8 +3,9 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import ToastContext from './context/ToastContext'
 import AuthContext from './context/Authcontext'
+import { Toaster } from '@/components/ui/toaster'
 
-const poppins = Poppins({ subsets: ['latin'], weight: "400" })
+const poppins = Poppins({ subsets: ['latin'], weight: "400", display: "swap" })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,8 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <AuthContext>
-          <ToastContext/>
+          <ToastContext />
           {children}
+          <Toaster />
         </AuthContext>
       </body>
     </html>

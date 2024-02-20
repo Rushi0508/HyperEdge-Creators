@@ -13,12 +13,13 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { BellIcon } from "@radix-ui/react-icons";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { IoIosLogOut } from 'react-icons/io'
+import NotificationSheet from "./NotificationSheet";
 
 function Navbar() {
-  const [profileMenu, setProfileMenu] = useState(false);
+  const [notiScreen, setNotiScreen] = useState(false);
   const router = useRouter()
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -32,15 +33,15 @@ function Navbar() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Find Brands</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col pl-5 pr-10">
-                    <NavigationMenuLink className="mt-3">
-                      Find Brands
+                  <NavigationMenuContent className="flex p-1 flex-col">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/'}>Find Brands</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="mt-3">
-                      Proposals
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/proposals'}>Proposals</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="my-3">
-                      Profile
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/profile'}>Profile</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -50,12 +51,12 @@ function Navbar() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>My Work</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col pl-5 pr-10">
-                    <NavigationMenuLink className="mt-3">
-                      My Work
+                  <NavigationMenuContent className="flex flex-col p-1">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/my-work'}>My Work</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="my-3">
-                      All Campaigns
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/campaigns'}>All Campaigns</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -65,15 +66,15 @@ function Navbar() {
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col pl-5 pr-10">
-                    <NavigationMenuLink className="mt-3">
-                      Overview
+                  <NavigationMenuContent className="flex flex-col p-1">
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/overview'}>Overview</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="mt-3">
-                      My Stats
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/my-work'}>My Stats</Link>
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="my-3">
-                      Transaction History
+                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
+                      <Link href={'/th'}>Transaction History</Link>
                     </NavigationMenuLink>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -96,37 +97,20 @@ function Navbar() {
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <nav className="flex items-center gap-6">
-            <Link
-              className="transition-colors hover:text-foreground/80 text-foreground relative"
-              href={"/"}
+            <div
+              onClick={() => setNotiScreen(true)}
+              className="cursor-pointer transition-colors hover:text-foreground/80 text-foreground relative"
             >
               <BellIcon className="w-7 h-7" />
               <span className="w-3 h-3 border-white border-2 bg-red-500 rounded-full absolute top-0 right-1"></span>
-            </Link>
-            <div
-              className="relative transition-colors hover:text-foreground/80 text-foreground cursor-pointer"
-              onClick={() => setProfileMenu(!profileMenu)}
-            >
-              <Avatar className="w-8 h-8">
-                <AvatarImage src="https://e7.pngegg.com/pngimages/442/17/png-clipart-computer-icons-user-profile-male-user-heroes-head-thumbnail.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <div
-                className={`${
-                  profileMenu ? "visible" : "hidden"
-                } pl-5 pr-10 absolute right-0 top-10 border-2 border-gray-200 bg-white rounded-md`}
-              >
-                <ul className="whitespace-nowrap text-left ">
-                  <Link href={"/profile"}>
-                    <li className="mt-3 hover:text-purple-500">Profile</li>
-                  </Link>
-                  <li onClick={async()=>{await signOut({redirect: false});router.push('/login')}} className="my-3 hover:text-purple-500">Logout</li>
-                </ul>
-              </div>
+            </div>
+            <div>
+              <IoIosLogOut onClick={async () => { await signOut({ redirect: false }); router.push('/login') }} className="cursor-pointer w-7 h-7" />
             </div>
           </nav>
         </div>
       </div>
+      <NotificationSheet setNotiScreen={setNotiScreen} notiScreen={notiScreen} />
     </header>
   );
 }
