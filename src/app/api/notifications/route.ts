@@ -24,8 +24,8 @@ export async function GET(){
                 }
             },
             cacheStrategy:{
-                ttl: 200,
-                swr: 100
+                ttl: 60,
+                swr: 30
             }
         })
         return NextResponse.json({success: true, collaborations:collaborations})

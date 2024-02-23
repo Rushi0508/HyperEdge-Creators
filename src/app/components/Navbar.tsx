@@ -20,6 +20,7 @@ import NotificationSheet from "./NotificationSheet";
 
 function Navbar() {
   const [notiScreen, setNotiScreen] = useState(false);
+  const [notiIndicator, setNotiIndicator] = useState(false)
   const router = useRouter()
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -102,7 +103,7 @@ function Navbar() {
               className="cursor-pointer transition-colors hover:text-foreground/80 text-foreground relative"
             >
               <BellIcon className="w-7 h-7" />
-              <span className="w-3 h-3 border-white border-2 bg-red-500 rounded-full absolute top-0 right-1"></span>
+              {notiIndicator ? <span className="w-3 h-3 border-white border-2 bg-red-500 rounded-full absolute top-0 right-1"></span> : null}
             </div>
             <div>
               <IoIosLogOut onClick={async () => { await signOut({ redirect: false }); router.push('/login') }} className="cursor-pointer w-7 h-7" />
@@ -110,7 +111,7 @@ function Navbar() {
           </nav>
         </div>
       </div>
-      <NotificationSheet setNotiScreen={setNotiScreen} notiScreen={notiScreen} />
+      <NotificationSheet setNotiIndicator={setNotiIndicator} setNotiScreen={setNotiScreen} notiScreen={notiScreen} />
     </header>
   );
 }
