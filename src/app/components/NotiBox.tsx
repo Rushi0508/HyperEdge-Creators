@@ -44,7 +44,7 @@ function NotiBox({ fetchData, collaboration, setCampaign, setSheetOpen }: any) {
                     <Link href={`/brand/${collaboration.campaign.brand.id}`} className='hover:underline text-sm font-bold'>{collaboration.campaign.brand.name}</Link>
                 </div>
                 <div className='grid grid-cols-3 gap-4'>
-                    <button disabled={loading} onClick={() => handleStatus("ACCEPTED")} className="flex justify-center items-center gap-1 focus:bg-green-500 focus:text-white outline-none bg-transparent text-sm hover:bg-green-500 text-green-700  hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded">
+                    <button disabled={loading} onClick={() => handleStatus("APPROVED")} className="flex justify-center items-center gap-1 focus:bg-green-500 focus:text-white outline-none bg-transparent text-sm hover:bg-green-500 text-green-700  hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded">
                         {
                             loading ?
                                 <ReloadIcon className='animate-spin' /> : null
