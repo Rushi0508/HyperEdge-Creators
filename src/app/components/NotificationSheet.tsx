@@ -13,13 +13,16 @@ import NotiBox from "./NotiBox";
 import axios from "axios";
 import CampaignSheet from "../(site)/components/CampaignSheet";
 
-function NotificationSheet({ setNotiScreen, notiScreen }: any) {
+function NotificationSheet({ setNotiScreen, notiScreen, setNotiIndicator }: any) {
     const [collaborations, setCollaborations] = useState<any>([]);
     const [dataLoading, setDataLoading] = useState(true);
     const fetchData = async () => {
         const { data } = await axios.get('/api/notifications');
         if (data.hasOwnProperty('success')) {
             setCollaborations(data.collaborations);
+            if (data.collaborations && data.collaborations.length > 0) {
+                setNotiIndicator(true)
+            }
         }
         setDataLoading(false)
     }
