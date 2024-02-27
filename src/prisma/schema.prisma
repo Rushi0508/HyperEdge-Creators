@@ -180,7 +180,7 @@ model Proposal {
 enum ProposalStatus {
   PENDING
   ACCEPTED
-  REJECTED
+  DECLINED
 }
 
 enum CampaignVisibility {

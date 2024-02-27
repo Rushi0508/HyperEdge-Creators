@@ -57,7 +57,7 @@ function CampaignSheet({ campaign, setCampaign, setSheetOpen, sheetOpen }: any) 
                             <AvatarImage className="overflow-visible object-cover" src={campaign?.brand.logo} />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
-                        <Link href='/' className="font-bold cursor-pointer hover:underline">{campaign?.brand.name}</Link>
+                        <Link href={`/brand/${campaign?.brand.id}`} className="font-bold cursor-pointer hover:underline">{campaign?.brand.name}</Link>
                     </div>
                 </div>
                 <hr className="my-6" />
