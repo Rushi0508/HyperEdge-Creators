@@ -56,6 +56,19 @@ export async function GET(req: Request){
                     has:user?.id
                 },
                 status: status
+            },
+            include:{
+                brand:{
+                    select:{
+                        id:true,
+                        logo:true,
+                        name: true
+                    }
+                }
+            },
+            cacheStrategy:{
+                ttl: 60,
+                swr: 10,
             }
         })
         return NextResponse.json({success: true, campaigns:campaigns})

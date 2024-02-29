@@ -23,7 +23,7 @@ import getSession from "@/app/actions/getSession"
 import axios from "axios"
 import { ProposalDialog } from "./ProposalDialog"
 
-function CampaignSheet({ campaign, setCampaign, setSheetOpen, sheetOpen }: any) {
+function CampaignSheet({ campaign, mywork, setSheetOpen, sheetOpen }: any) {
     const [isLoading, setIsLoading] = useState(true)
     const [message, setMessage] = useState<any>(null)
     const [openProposal, setOpenProposal] = useState(false)
@@ -93,7 +93,7 @@ function CampaignSheet({ campaign, setCampaign, setSheetOpen, sheetOpen }: any) 
                         </p>
                     </div>
                 </div>
-                <div className="flex items-center gap-10 my-6">
+                <div className="flex flex-wrap items-center gap-4 my-6">
                     {
                         message ? <p className="bg-green-600 px-4 py-2 rounded-md text-white">{message}</p> :
                             <Button onClick={() => setOpenProposal(true)} size={"lg"} className="flex gap-2 px-4 cursor-pointer" asChild>
@@ -103,6 +103,7 @@ function CampaignSheet({ campaign, setCampaign, setSheetOpen, sheetOpen }: any) 
                                 </div>
                             </Button>
                     }
+                    {mywork && <Button asChild size={"lg"}><Link href={'/messages'}>Have a chat</Link></Button>}
                     <ProposalDialog fetchDetails={fetchDetails} setOpenProposal={setOpenProposal} openProposal={openProposal} campaignId={campaign?.id} />
                 </div>
             </SheetContent>

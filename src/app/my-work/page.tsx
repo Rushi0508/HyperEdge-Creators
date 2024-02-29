@@ -7,11 +7,14 @@ import React, { useEffect, useState } from 'react'
 import Loading from './loading'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
+import CampaignSheet from '../(site)/components/CampaignSheet'
 
 function page() {
     const [status, setStatus] = useState("ACTIVE")
     const [campaigns, setCampaigns] = useState<any>(null)
     const [dataLoading, setDataLoading] = useState(false)
+    const [campaign, setCampaign] = useState(null);
+    const [sheetOpen, setSheetOpen] = useState(false);
     const fetchCampaigns = async () => {
         try {
             setDataLoading(true)
@@ -50,8 +53,11 @@ function page() {
                                             <p className='tracking-wide text-lg font-semibold'>{campaign.name}</p>
                                             <p className='text-xs text-gray-400'>Posted on: {format(campaign.createdAt, 'PPP')}</p>
                                             <p className='text-sm mt-5'>{campaign.description.substring(0, 150)}...</p>
-                                            <Button asChild className='p-0 h-auto mt-2' variant={"link"}>
-                                                <Link href={`/campaign/${campaign.id}`}>See Activity</Link>
+                                            <Button onClick={() => {
+                                                setSheetOpen(true);
+                                                setCampaign(campaign);
+                                            }} className='p-0 h-auto mt-2' variant={"link"}>
+                                                See Details
                                             </Button>
                                         </div>
                                         <hr />
@@ -60,6 +66,7 @@ function page() {
                     }
                 </TabsContent>
             </Tabs>
+            <CampaignSheet mywork campaign={campaign} setSheetOpen={setSheetOpen} sheetOpen={sheetOpen} />
         </>
     )
 }
