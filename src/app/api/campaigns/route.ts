@@ -2,19 +2,62 @@ import { NextResponse } from "next/server";
 import prisma from '@/app/libs/prismadb'
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import { parse } from "url";
+import categoriesJson from '../../actions/categories.json'
 
 export async function POST(req: Request){
+    
+    
+
+    function findParentCategories(term:string) {
+        const matchedParents = [];
+        for (const [parent, children] of Object.entries(categoriesJson.categories)) {
+            if (parent.toLowerCase().includes(term)) {
+                matchedParents.push(parent); 
+            } else {
+                const matchedChild = children.some(child => child.toLowerCase().includes(term));
+                if (matchedChild) {
+                matchedParents.push(parent);
+                }
+            }
+        }
+        return matchedParents;
+    }
+
+    const getCategories = (query:string)=>{
+        const searchTerms = query.split(',').map((term:string) => term.trim());
+        let parentCategories:string[] = [];
+        searchTerms.forEach((term:string) => {
+            const parents = findParentCategories(term);
+            parentCategories = [...parentCategories, ...parents];
+        });
+
+        const uniqueSet = new Set(parentCategories);
+        parentCategories = Array.from(uniqueSet);
+        return parentCategories;
+    }
     try{
         const creator = await getCurrentUser();
+        let body = await req.json() 
+        let {query} = body 
+        query = query.toLowerCase() 
         let campaigns:any= []
+        let categories;
         if(creator){
+            if(query==""){
+                categories = creator?.categories
+            }
+            else if(query=="all"){
+                categories = getCategories("");
+            }else{
+                categories = getCategories(query);
+            }
             campaigns = await prisma.campaign.findMany({
                 where:{
                     visibility: "PUBLIC",
                     OR: [
                         {
                             targetCategory: {
-                                hasSome: creator?.categories
+                                hasSome: categories
                             }
                         },{
                             targetCategory: {
