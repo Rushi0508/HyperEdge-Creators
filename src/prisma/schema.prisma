@@ -177,6 +177,20 @@ model Proposal {
   createdAt    DateTime       @default(now())
 }
 
+model Chat {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  members   String[] @db.ObjectId
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  chatId    String   @db.ObjectId
+  senderId  String   @db.ObjectId
+  content   String
+  createdAt DateTime @default(now())
+}
+
 enum ProposalStatus {
   PENDING
   ACCEPTED
