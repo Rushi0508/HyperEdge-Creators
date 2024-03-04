@@ -6,25 +6,16 @@ export async function POST(req: Request) {
   try {
     const user = await getCurrentUser();
     const body = await req.json();
-    const { secondId } = body;
+    const { chatId, content } = body;
     if (user) {
-      const chat = await prisma.chat.findFirst({
-        where: {
-          AND: [
-            {
-              members: {
-                has: user.id,
-              },
-            },
-            {
-              members: {
-                has: secondId,
-              },
-            },
-          ],
+      const message = await prisma.message.create({
+        data: {
+          chatId: chatId,
+          content: content,
+          senderId: user.id,
         },
       });
-      return NextResponse.json({ success: true, chats: chat });
+      return NextResponse.json({ success: true });
     } else {
       throw Error();
     }
