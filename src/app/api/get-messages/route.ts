@@ -10,6 +10,9 @@ export async function POST(req: Request) {
         where: {
           chatId: chatId,
         },
+        orderBy: {
+          createdAt: "asc",
+        },
       });
       return NextResponse.json({ success: true, messages: messages });
     } else {
