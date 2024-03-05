@@ -8,8 +8,16 @@ export async function POST(req: Request) {
     if (user) {
       const chats = await prisma.chat.findMany({
         where: {
-          members: {
-            has: user.id,
+          creatorId: user.id,
+        },
+        include: {
+          brand: {
+            select: {
+              name: true,
+              logo: true,
+              id: true,
+              personName: true,
+            },
           },
         },
       });

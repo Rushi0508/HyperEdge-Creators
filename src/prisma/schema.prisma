@@ -54,6 +54,7 @@ model Creator {
   collaborationIds  String[]        @db.ObjectId
   Testimonial       Testimonial[]
   Portfolio         Portfolio[]
+  Chat              Chat[]
 }
 
 model SocialLinks {
@@ -140,6 +141,7 @@ model Brand {
   testimonials    Testimonial[]
   testimonalIds   String[]        @db.ObjectId
   createdAt       DateTime        @default(now())
+  Chat            Chat[]
 }
 
 model Campaign {
@@ -179,7 +181,10 @@ model Proposal {
 
 model Chat {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  members   String[] @db.ObjectId
+  creator   Creator  @relation(fields: [creatorId], references: [id])
+  creatorId String   @db.ObjectId
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  brandId   String   @db.ObjectId
   createdAt DateTime @default(now())
 }
 

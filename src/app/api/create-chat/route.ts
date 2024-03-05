@@ -6,14 +6,31 @@ export async function POST(req: Request) {
   try {
     const sender = await getCurrentUser();
     const body = await req.json();
-    const { receiverId } = body;
+    const { brandId } = body;
     if (sender) {
-      const chat = await prisma.chat.create({
-        data: {
-          members: [sender.id, receiverId],
+      // Check if chat already exists
+      const chatExists = await prisma.chat.findFirst({
+        where: {
+          creatorId: sender.id,
+          brandId: brandId,
         },
       });
-      return NextResponse.json({ success: true, chat: chat });
+      if (chatExists) {
+        return NextResponse.json({
+          success: true,
+          chat: chatExists,
+        });
+      }
+      const chat = await prisma.chat.create({
+        data: {
+          creatorId: sender.id,
+          brandId: brandId,
+        },
+      });
+      return NextResponse.json({
+        success: true,
+        chat: chat,
+      });
     } else {
       throw Error();
     }
