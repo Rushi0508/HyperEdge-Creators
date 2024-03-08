@@ -4,14 +4,22 @@ import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(req: Request) {
   try {
-    const user = await getCurrentUser();
     const body = await req.json();
-    const { brandId } = body;
-    if (user) {
+    const { chatId } = body;
+    if (chatId) {
       const chat = await prisma.chat.findFirst({
         where: {
-          creatorId: user.id,
-          brandId: brandId,
+          id: chatId,
+        },
+        include: {
+          brand: {
+            select: {
+              name: true,
+              logo: true,
+              id: true,
+              personName: true,
+            },
+          },
         },
       });
       return NextResponse.json({ success: true, chat: chat });

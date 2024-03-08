@@ -10,7 +10,7 @@ import {
     useForm
 } from "react-hook-form";
 import axios from "axios";
-import MessageInput from "./MessageInput";
+import MessageInput from "../components/MessageInput";
 import toast from "react-hot-toast";
 
 const Form = ({ chat }: any) => {

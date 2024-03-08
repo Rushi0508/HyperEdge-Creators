@@ -49,7 +49,7 @@ function CampaignSheet({ campaign, mywork, setSheetOpen, sheetOpen }: any) {
             setIsLoading(true);
             const { data } = await axios.post('/api/create-chat', { brandId: campaign?.brand?.id })
             if (data.hasOwnProperty('success')) {
-                router.push(`/messages/${data.chat.brandId}`)
+                router.push(`/messages/${data.chat.id}`)
             }
         } catch (err) {
             toast.error("Something went wrong")
