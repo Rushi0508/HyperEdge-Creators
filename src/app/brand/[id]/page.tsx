@@ -31,7 +31,7 @@ function page({ params }: { params: { id: string } }) {
 
     useEffect(() => {
         fetchBrand();
-    })
+    }, [])
 
     if (user == "") return <NotFound />
     else if (dataLoading) return <Loading />
