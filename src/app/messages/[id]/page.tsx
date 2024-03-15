@@ -6,7 +6,8 @@ import MessageBox from './MessageBox'
 import Form from './Form'
 import Loading from '../loading'
 import NotFound from '@/app/not-found'
-
+import { db } from '@/app/libs/firebase'
+import { collection, onSnapshot, orderBy, query, where } from 'firebase/firestore'
 
 function ChatBody({ params }: { params: { id: string } }) {
     const [chat, setChat] = useState<any>(JSON.parse(localStorage.getItem('chat')!))
@@ -18,10 +19,20 @@ function ChatBody({ params }: { params: { id: string } }) {
             if (!chat) {
                 await fetchChat()
             }
-            const { data } = await axios.post('/api/get-messages', { chatId: params.id });
-            if (data.hasOwnProperty('success')) {
-                setMessages(data.messages)
-            }
+            const unsubscribe = await onSnapshot(query(collection(db, 'messages'), where(
+                'chatId', '==', params.id
+            ), orderBy('createdAt', "asc")), snapshot => {
+                const messagesData = snapshot.docs.map((doc) => ({
+                    ...doc.data()
+                }));
+                console.log(messagesData)
+                setMessages(messagesData);
+            })
+            return unsubscribe;
+            // const { data } = await axios.post('/api/get-messages', { chatId: params.id });
+            // if (data.hasOwnProperty('success')) {
+            //     setMessages(data.messages)
+            // }
         } catch (e) {
             console.log(e);
         } finally {

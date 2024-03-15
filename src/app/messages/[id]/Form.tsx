@@ -10,8 +10,10 @@ import {
     useForm
 } from "react-hook-form";
 import axios from "axios";
-import MessageInput from "../components/MessageInput";
+import MessageInput from "./MessageInput";
 import toast from "react-hot-toast";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/app/libs/firebase";
 
 const Form = ({ chat }: any) => {
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -19,10 +21,18 @@ const Form = ({ chat }: any) => {
         if (data.message.length == 0) {
             toast.error("Enter message to send")
         }
-        await axios.post('/api/add-message', {
+        const user = await axios.get('/api/get-user');
+        const messageCollection = collection(db, 'messages');
+        await addDoc(messageCollection, {
             content: data.message,
-            chatId: chat.id
+            chatId: chat.id,
+            senderId: user.data.user.id,
+            createdAt: serverTimestamp()
         })
+        // await axios.post('/api/add-message', {
+        //     content: data.message,
+        //     chatId: chat.id
+        // })
     }
     const {
         register,
