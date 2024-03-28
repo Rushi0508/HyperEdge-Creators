@@ -39,7 +39,7 @@ function NotiBox({ fetchData, collaboration, setCampaign, setSheetOpen }: any) {
                     <p>Brand: </p>
                     <Avatar className='overflow-visible'>
                         <AvatarImage className='mt-2 h-6 overflow-visible object-cover' src={collaboration.campaign.brand.logo}></AvatarImage>
-                        <AvatarFallback>B</AvatarFallback>
+                        <AvatarFallback>{collaboration.campaign.brand.name.substring(0, 1)}</AvatarFallback>
                     </Avatar>
                     <Link href={`/brand/${collaboration.campaign.brand.id}`} className='hover:underline text-sm font-bold'>{collaboration.campaign.brand.name}</Link>
                 </div>

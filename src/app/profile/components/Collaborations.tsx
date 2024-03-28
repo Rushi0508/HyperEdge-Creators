@@ -21,7 +21,7 @@ function Collaborations({ user }: any) {
                                             <CardHeader className='flex gap-4 flex-row'>
                                                 <Avatar className="w-16 h-16">
                                                     <AvatarImage src={c.brand.logo} className='object-cover overflow-visible' />
-                                                    <AvatarFallback>CN</AvatarFallback>
+                                                    <AvatarFallback>{c.brand.name.substring(0, 1)}</AvatarFallback>
                                                 </Avatar>
                                                 <div>
                                                     <CardTitle>

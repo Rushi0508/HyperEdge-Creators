@@ -11,7 +11,7 @@ function ChatBox({ chat }: any) {
         }} className='cursor-pointer py-3 px-4 rounded-md hover:bg-gray-100 flex items-center gap-4'>
             <Avatar>
                 <AvatarImage src={chat.brand.logo} className='overflow-visible object-cover' />
-                <AvatarFallback>L</AvatarFallback>
+                <AvatarFallback>{chat.brand.name.substring(0, 1)}</AvatarFallback>
             </Avatar>
             <div>
                 <p className='text-sm'>{chat.brand.personName}</p>

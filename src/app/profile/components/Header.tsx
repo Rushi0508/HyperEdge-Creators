@@ -56,7 +56,7 @@ function Header({ user, setUser }: any) {
         <div className='relative'>
           <Avatar className="w-20 h-20">
             <AvatarImage className='object-cover overflow-visible' src={user?.avatar} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>{user?.fullName.substring(0, 1)}</AvatarFallback>
           </Avatar>
           <label className='cursor-pointer bg-purple-500 text-white rounded-full p-0.5 absolute right-1 bottom-1' htmlFor='logo'>
             {

@@ -71,7 +71,7 @@ function CampaignSheet({ campaign, mywork, setSheetOpen, sheetOpen }: any) {
                     <div className="flex gap-2 items-center">
                         <Avatar className="w-8 h-8">
                             <AvatarImage className="overflow-visible object-cover" src={campaign?.brand.logo} />
-                            <AvatarFallback>CN</AvatarFallback>
+                            <AvatarFallback>{campaign?.brand.name.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <Link href={`/brand/${campaign?.brand.id}`} className="font-bold cursor-pointer hover:underline">{campaign?.brand.name}</Link>
                     </div>
