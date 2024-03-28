@@ -52,8 +52,7 @@ model Creator {
   proposals         Proposal[]
   collaborations    Collaboration[]
   collaborationIds  String[]        @db.ObjectId
-  Testimonial       Testimonial[]
-  Portfolio         Portfolio[]
+  ratings           Int?
   Chat              Chat[]
 }
 
@@ -86,6 +85,8 @@ model Collaboration {
   campaign   Campaign            @relation(fields: [campaignId], references: [id])
   campaignId String              @db.ObjectId
   status     CollaborationStatus
+  rating     Int?
+  paymentId  String?
   createdAt  DateTime            @default(now())
 }
 
@@ -93,28 +94,6 @@ enum CollaborationStatus {
   PENDING
   APPROVED
   DECLINED
-}
-
-model Testimonial {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  creator   Creator  @relation(fields: [creatorId], references: [id])
-  creatorId String   @db.ObjectId
-  content   String
-  rating    Int
-  brand     Brand    @relation(fields: [brandId], references: [id])
-  brandId   String   @db.ObjectId
-  createdAt DateTime @default(now())
-}
-
-model Portfolio {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  creator     Creator  @relation(fields: [creatorId], references: [id])
-  creatorId   String   @db.ObjectId
-  title       String
-  description String
-  imageUrl    String
-  videoUrl    String
-  createdAt   DateTime @default(now())
 }
 
 model Brand {
@@ -138,8 +117,6 @@ model Brand {
   campaignIds     String[]        @db.ObjectId
   collaborations  Collaboration[]
   collborationIds String[]        @db.ObjectId
-  testimonials    Testimonial[]
-  testimonalIds   String[]        @db.ObjectId
   createdAt       DateTime        @default(now())
   Chat            Chat[]
 }
