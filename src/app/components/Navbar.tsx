@@ -47,24 +47,6 @@ function Navbar() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
-                    <NavigationMenuContent className="flex flex-col p-1">
-                      <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                        <Link href={'/overview'}>Overview</Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                        <Link href={'/my-work'}>My Stats</Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                        <Link href={'/th'}>Transaction History</Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
             </NavigationMenu>
             <NavigationMenu>
               <NavigationMenuList>
@@ -74,6 +56,19 @@ function Navbar() {
                       className={navigationMenuTriggerStyle()}
                     >
                       My Work
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <Link href={"/payments"} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Payments
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
