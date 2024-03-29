@@ -52,7 +52,7 @@ model Creator {
   proposals         Proposal[]
   collaborations    Collaboration[]
   collaborationIds  String[]        @db.ObjectId
-  ratings           Int?
+  ratings           Float?          @default(0)
   Chat              Chat[]
 }
 
