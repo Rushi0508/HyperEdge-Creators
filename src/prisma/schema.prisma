@@ -53,6 +53,7 @@ model Creator {
   collaborations    Collaboration[]
   collaborationIds  String[]        @db.ObjectId
   ratings           Float?          @default(0)
+  stripeAccountId   String?
   Chat              Chat[]
 }
 
