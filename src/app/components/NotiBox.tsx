@@ -39,23 +39,15 @@ function NotiBox({ fetchData, collaboration, setCampaign, setSheetOpen }: any) {
                     <p>Brand: </p>
                     <Avatar className='overflow-visible'>
                         <AvatarImage className='mt-2 h-6 overflow-visible object-cover' src={collaboration.campaign.brand.logo}></AvatarImage>
-                        <AvatarFallback>B</AvatarFallback>
+                        <AvatarFallback>{collaboration.campaign.brand.name.substring(0, 1)}</AvatarFallback>
                     </Avatar>
                     <Link href={`/brand/${collaboration.campaign.brand.id}`} className='hover:underline text-sm font-bold'>{collaboration.campaign.brand.name}</Link>
                 </div>
                 <div className='grid grid-cols-3 gap-4'>
-                    <button disabled={loading} onClick={() => handleStatus("ACCEPTED")} className="flex justify-center items-center gap-1 focus:bg-green-500 focus:text-white outline-none bg-transparent text-sm hover:bg-green-500 text-green-700  hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded">
-                        {
-                            loading ?
-                                <ReloadIcon className='animate-spin' /> : null
-                        }
+                    <button disabled={loading} onClick={() => handleStatus("APPROVED")} className="cursor-pointer flex justify-center items-center gap-1 focus:bg-green-500 focus:text-white outline-none bg-transparent text-sm hover:bg-green-500 text-green-700  hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded">
                         Accept
                     </button>
-                    <button disabled={loading} onClick={() => handleStatus("DECLINED")} className="flex justify-center items-center gap-1 focus:bg-red-500 focus:text-white outline-none bg-transparent text-sm hover:bg-red-500 text-red-700  hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded">
-                        {
-                            loading ?
-                                <ReloadIcon /> : null
-                        }
+                    <button disabled={loading} onClick={() => handleStatus("DECLINED")} className="cursor-pointer flex justify-center items-center gap-1 focus:bg-red-500 focus:text-white outline-none bg-transparent text-sm hover:bg-red-500 text-red-700  hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded">
                         Decline
                     </button>
                 </div>

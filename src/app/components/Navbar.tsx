@@ -23,7 +23,7 @@ function Navbar() {
   const [notiIndicator, setNotiIndicator] = useState(false)
   const router = useRouter()
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-white">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="mr-4 hidden md:flex">
           <Link className="mr-6 flex items-center space-x-2" href="/">
@@ -51,33 +51,26 @@ function Navbar() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>My Work</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col p-1">
-                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                      <Link href={'/my-work'}>My Work</Link>
+                  <Link href={"/my-work"} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      My Work
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                      <Link href={'/campaigns'}>All Campaigns</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuContent>
+                  </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
-                  <NavigationMenuContent className="flex flex-col p-1">
-                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                      <Link href={'/overview'}>Overview</Link>
+                  <Link href={"/payments"} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      Payments
                     </NavigationMenuLink>
-                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                      <Link href={'/my-work'}>My Stats</Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink className="cursor-pointer py-2 pl-5 pr-10 rounded-lg hover:bg-slate-100" asChild>
-                      <Link href={'/th'}>Transaction History</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuContent>
+                  </Link>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>

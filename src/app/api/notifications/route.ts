@@ -22,10 +22,6 @@ export async function GET(){
                         }
                     }
                 }
-            },
-            cacheStrategy:{
-                ttl: 60,
-                swr: 30
             }
         })
         return NextResponse.json({success: true, collaborations:collaborations})
@@ -52,7 +48,7 @@ export async function POST(req: Request){
               },
             });
         }
-        if(body.status==="DECLINED"){
+        if(body.status=='DECLINED'){
             await prisma.collaboration.delete({
                 where: {
                     id: body.collaborationId,
@@ -71,10 +67,12 @@ export async function POST(req: Request){
                 }
             })
         }
-        else if(body.status==="APPROVED"){
-            await prisma.collaboration.findUnique({
+        else if(body.status=='APPROVED'){
+            await prisma.collaboration.update({
                 where: {
                     id: body.collaborationId,
+                },
+                data:{
                     status: body.status
                 }
             })

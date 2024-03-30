@@ -22,6 +22,8 @@ function NotificationSheet({ setNotiScreen, notiScreen, setNotiIndicator }: any)
             setCollaborations(data.collaborations);
             if (data.collaborations && data.collaborations.length > 0) {
                 setNotiIndicator(true)
+            } else {
+                setNotiIndicator(false)
             }
         }
         setDataLoading(false)

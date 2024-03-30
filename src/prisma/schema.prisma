@@ -52,8 +52,10 @@ model Creator {
   proposals         Proposal[]
   collaborations    Collaboration[]
   collaborationIds  String[]        @db.ObjectId
-  Testimonial       Testimonial[]
-  Portfolio         Portfolio[]
+  ratings           Float?          @default(0)
+  stripeAccountId   String?
+  Chat              Chat[]
+  payments          Payment[]
 }
 
 model SocialLinks {
@@ -85,35 +87,26 @@ model Collaboration {
   campaign   Campaign            @relation(fields: [campaignId], references: [id])
   campaignId String              @db.ObjectId
   status     CollaborationStatus
+  rating     Int?
+  paymentId  String?
   createdAt  DateTime            @default(now())
+}
+
+model Payment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId String
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  brandId   String   @db.ObjectId
+  creator   Creator  @relation(fields: [creatorId], references: [id])
+  creatorId String   @db.ObjectId
+  amount    Int
+  createdAt DateTime @default(now())
 }
 
 enum CollaborationStatus {
   PENDING
   APPROVED
   DECLINED
-}
-
-model Testimonial {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  creator   Creator  @relation(fields: [creatorId], references: [id])
-  creatorId String   @db.ObjectId
-  content   String
-  rating    Int
-  brand     Brand    @relation(fields: [brandId], references: [id])
-  brandId   String   @db.ObjectId
-  createdAt DateTime @default(now())
-}
-
-model Portfolio {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  creator     Creator  @relation(fields: [creatorId], references: [id])
-  creatorId   String   @db.ObjectId
-  title       String
-  description String
-  imageUrl    String
-  videoUrl    String
-  createdAt   DateTime @default(now())
 }
 
 model Brand {
@@ -137,9 +130,9 @@ model Brand {
   campaignIds     String[]        @db.ObjectId
   collaborations  Collaboration[]
   collborationIds String[]        @db.ObjectId
-  testimonials    Testimonial[]
-  testimonalIds   String[]        @db.ObjectId
   createdAt       DateTime        @default(now())
+  Chat            Chat[]
+  payments        Payment[]
 }
 
 model Campaign {
@@ -177,10 +170,27 @@ model Proposal {
   createdAt    DateTime       @default(now())
 }
 
+model Chat {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  creator   Creator  @relation(fields: [creatorId], references: [id])
+  creatorId String   @db.ObjectId
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  brandId   String   @db.ObjectId
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  chatId    String   @db.ObjectId
+  senderId  String   @db.ObjectId
+  content   String
+  createdAt DateTime @default(now())
+}
+
 enum ProposalStatus {
   PENDING
   ACCEPTED
-  REJECTED
+  DECLINED
 }
 
 enum CampaignVisibility {

@@ -18,19 +18,19 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"
+} from "@/components/ui/select"
 import getCurrentUser from '@/app/actions/getCurrentUser'
 import { calculateProfileCompletion } from '@/app/actions/calculateProfileCompletion'
 
-  type optionProps = {
+type optionProps = {
     value: number | string,
     label: string,
     subLabels?: string[]
 }
 
-function ProfessionalCard({setVisible,user,setProgress}:any) {
+function ProfessionalCard({ setVisible, user, setProgress }: any) {
     const [isLoading, setIsLoading] = useState(false)
-    const [charges,setCharges] = useState<any>("")
+    const [charges, setCharges] = useState<any>("")
     const [unit, setUnit] = useState("")
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState<optionProps[]>();
@@ -39,65 +39,65 @@ function ProfessionalCard({setVisible,user,setProgress}:any) {
     const [subCategoryOptions, setSubCategoryOptions] = useState<optionProps[]>()
     const [languageOptions, setLanguageOptions] = useState<optionProps[]>()
     const [categoryOptions, setCategoryOptions] = useState<optionProps[]>()
-    useEffect(()=>{
-        const fetchData = async()=>{
+    useEffect(() => {
+        const fetchData = async () => {
             setCategoryOptions(await getAllCategories())
             setLanguageOptions(await getAllLanguages())
         }
-        if(user){
+        if (user) {
             setTitle(user.title)
-            setCategory(user.categories.map((c:optionProps)=>({value: c,label: c})))
-            setSubCategory(user.subCategories.map((c:optionProps)=>({value: c,label: c})))
-            setLanguages(user.languagesSpoken.map((l:optionProps)=>({value: l,label: l})))
+            setCategory(user.categories.map((c: optionProps) => ({ value: c, label: c })))
+            setSubCategory(user.subCategories.map((c: optionProps) => ({ value: c, label: c })))
+            setLanguages(user.languagesSpoken.map((l: optionProps) => ({ value: l, label: l })))
             setCharges(user.charges)
             setUnit(user.unit)
         }
         fetchData();
     }, [])
-    const fetchSubCategory = async ()=>{
-        const subCat = await category?.map((item:any)=>item.subLabels).flat();
-        setSubCategoryOptions(subCat?.map((item:any,i:any)=>({
+    const fetchSubCategory = async () => {
+        const subCat = await category?.map((item: any) => item.subLabels).flat();
+        setSubCategoryOptions(subCat?.map((item: any, i: any) => ({
             value: i,
             label: item
         })))
     }
-    const handleCategoryChange = async (selectedOptions:any)=>{
+    const handleCategoryChange = async (selectedOptions: any) => {
         setCategory(selectedOptions)
     }
-    const handleSubCategoryChange = async (selectedOptions:any)=>{
+    const handleSubCategoryChange = async (selectedOptions: any) => {
         setSubCategory(selectedOptions)
     }
 
-    const onSubmit = async()=>{
+    const onSubmit = async () => {
         setIsLoading(true)
-        const categories = category?.map((obj)=>obj.label)
-        const subCategories = subCategory?.map((obj)=>obj.label)
-        const languagesSpoken = languages?.map((obj)=>obj.label)
-        try{
-            if(!title && !category && !subCategory && !languages && !charges){
+        const categories = category?.map((obj) => obj.label)
+        const subCategories = subCategory?.map((obj) => obj.label)
+        const languagesSpoken = languages?.map((obj) => obj.label)
+        try {
+            if (!title && !category && !subCategory && !languages && !charges) {
                 return toast.error("Enter details to submit")
             }
-            if(charges && isNaN(charges)){
+            if (charges && isNaN(charges)) {
                 return toast.error("Enter valid charges")
             }
             const c = parseInt(charges)
-            const {data} = await axios.post('/api/profile', {title,subCategories,categories,languagesSpoken,charges: c,unit});
-            if(data.hasOwnProperty('errors')){
+            const { data } = await axios.post('/api/profile', { title, subCategories, categories, languagesSpoken, charges: c, unit });
+            if (data.hasOwnProperty('errors')) {
                 toast.error("Data not stored. Try again")
-            } 
-            if(data.hasOwnProperty('success')){
+            }
+            if (data.hasOwnProperty('success')) {
                 toast.success("Data Saved")
                 setProgress(calculateProfileCompletion(data.user))
             }
-        }catch(error){
+        } catch (error) {
             return toast.error("Something went wrong")
         }
-        finally{
+        finally {
             setIsLoading(false)
         }
     }
-  return (
-    <Card>
+    return (
+        <Card>
             <CardHeader>
                 <CardTitle className='text-xl'>Professional Information</CardTitle>
                 <CardDescription>Fill out your work information</CardDescription>
@@ -106,16 +106,16 @@ function ProfessionalCard({setVisible,user,setProgress}:any) {
                 <div className='flex gap-2'>
                     <div className='w-2/3'>
                         <Label htmlFor='title'>Title <span className='text-gray-500'>(Enter a single sentence description of your professional skills/experience)</span></Label>
-                        <Input value={title} disabled={isLoading} id='title' onChange={(e)=>setTitle(e.target.value)}/>
+                        <Input value={title} disabled={isLoading} id='title' onChange={(e) => setTitle(e.target.value)} />
                     </div>
                     <div className='w-1/3'>
                         <Label htmlFor='charges'>Charges<span className='text-gray-500'>($)</span></Label>
                         <div className="flex gap-1 items-center">
-                            <Input value={charges} className='w-1/3' disabled={isLoading} id='charges' onChange={(e)=>setCharges(e.target.value)}/>
+                            <Input value={charges} className='w-1/3' disabled={isLoading} id='charges' onChange={(e) => setCharges(e.target.value)} />
                             /
-                            <Sel disabled={isLoading} onValueChange={(e)=>setUnit(e)}>
+                            <Sel disabled={isLoading} onValueChange={(e) => setUnit(e)}>
                                 <SelectTrigger className='w-2/3'>
-                                    <SelectValue placeholder={`${unit? unit.slice(4):"Select type" }`}/>
+                                    <SelectValue placeholder={`${unit ? unit.slice(4) : "Select type"}`} />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectItem value="PER_POST">POST</SelectItem>
@@ -129,33 +129,33 @@ function ProfessionalCard({setVisible,user,setProgress}:any) {
                 </div>
                 <div className='flex gap-3'>
                     <div className='w-full'>
-                    <Label htmlFor='category'>Content Category</Label>
-                    <Select value={category} isDisabled={isLoading} options={categoryOptions} isLoading={categoryOptions? false:true} onChange={handleCategoryChange} isMulti isSearchable/>
+                        <Label htmlFor='category'>Content Category</Label>
+                        <Select value={category} isDisabled={isLoading} options={categoryOptions} isLoading={categoryOptions ? false : true} onChange={handleCategoryChange} isMulti isSearchable />
                     </div>
                 </div>
                 <div>
                     <div className='w-full'>
-                    <Label htmlFor='category'>Sub Category</Label>
-                    <Select value={subCategory} isDisabled={isLoading} onMenuOpen={fetchSubCategory}  options={subCategoryOptions} onChange={handleSubCategoryChange} isMulti isSearchable/>
+                        <Label htmlFor='category'>Sub Category</Label>
+                        <Select value={subCategory} isDisabled={isLoading} onMenuOpen={fetchSubCategory} options={subCategoryOptions} onChange={handleSubCategoryChange} isMulti isSearchable />
                     </div>
                 </div>
                 <div>
                     <div className='w-full'>
-                    <Label htmlFor='languages'>Languages Spoken</Label>
-                    <Select value={languages} isDisabled={isLoading} options={languageOptions} onChange={(lang:any)=>setLanguages(lang)} isLoading={languageOptions? false:true} isMulti/>
+                        <Label htmlFor='languages'>Languages Spoken</Label>
+                        <Select value={languages} isDisabled={isLoading} options={languageOptions} onChange={(lang: any) => setLanguages(lang)} isLoading={languageOptions ? false : true} isMulti />
                     </div>
                 </div>
                 <div className='flex gap-1 justify-end'>
-                    <Button onClick={()=>setVisible("1")} disabled={isLoading} variant={'link'}><ChevronLeftIcon className='h-5 w-5'/></Button>
+                    <Button onClick={() => setVisible("1")} disabled={isLoading} variant={'link'}><ChevronLeftIcon className='h-5 w-5' /></Button>
                     <Button disabled={isLoading} onClick={onSubmit}>
-                        {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin"/>}
+                        {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
                         Save
                     </Button>
-                    <Button disabled={isLoading} onClick={()=> setVisible("2")} variant={'link'}>Next</Button>
+                    <Button disabled={isLoading} onClick={() => setVisible("3")} variant={'link'}>Next</Button>
                 </div>
             </CardContent>
         </Card>
-  )
+    )
 }
 
 export default ProfessionalCard
