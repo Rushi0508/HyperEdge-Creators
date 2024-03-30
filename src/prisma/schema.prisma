@@ -55,6 +55,7 @@ model Creator {
   ratings           Float?          @default(0)
   stripeAccountId   String?
   Chat              Chat[]
+  payments          Payment[]
 }
 
 model SocialLinks {
@@ -91,6 +92,17 @@ model Collaboration {
   createdAt  DateTime            @default(now())
 }
 
+model Payment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId String
+  brand     Brand    @relation(fields: [brandId], references: [id])
+  brandId   String   @db.ObjectId
+  creator   Creator  @relation(fields: [creatorId], references: [id])
+  creatorId String   @db.ObjectId
+  amount    Int
+  createdAt DateTime @default(now())
+}
+
 enum CollaborationStatus {
   PENDING
   APPROVED
@@ -120,6 +132,7 @@ model Brand {
   collborationIds String[]        @db.ObjectId
   createdAt       DateTime        @default(now())
   Chat            Chat[]
+  payments        Payment[]
 }
 
 model Campaign {
