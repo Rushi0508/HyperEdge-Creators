@@ -32,9 +32,12 @@ export const calculateProfileCompletion = (user: any) => {
       key == "categories" ||
       key == "subCategories" ||
       key == "languagesSpoken" ||
-      key == "stripeAccountId"
+      key == "stripeAccountId" ||
+      key == "socialIds"
     ) {
-      if (Array.isArray(user[key])) {
+      if (key == "socialIds") {
+        completed += 2;
+      } else if (Array.isArray(user[key])) {
         if (user[key].length !== 0) completed++;
       } else if (
         user[key] !== null &&

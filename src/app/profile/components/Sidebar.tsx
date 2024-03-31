@@ -1,5 +1,8 @@
-import { InstagramLogoIcon, PlayIcon, TwitterLogoIcon } from '@radix-ui/react-icons'
+import { FaInstagram, FaYoutube } from "react-icons/fa";
+import { RiTwitterXLine } from "react-icons/ri";
+import { CiFacebook } from "react-icons/ci";
 import React from 'react'
+import Link from "next/link";
 
 function Sidebar({ user }: any) {
     return (
@@ -15,10 +18,15 @@ function Sidebar({ user }: any) {
             </div>
             <div className='mt-4'>
                 <p className='font-semibold'>Social Accounts</p>
-                <div className='flex items-center gap-2'>
-                    <InstagramLogoIcon className='w-6 h-6' />
-                    <TwitterLogoIcon className='w-6 h-6' />
-                </div>
+                {
+                    user.socialIds &&
+                    <div className='flex items-center gap-2'>
+                        {user.socialIds.instagram && <Link target="_blank" href={user.socialIds.instagram}><FaInstagram className="cursor-pointer" size={30} /></Link>}
+                        {user.socialIds.youtube && <Link target="_blank" href={user.socialIds.youtube}><FaYoutube className="cursor-pointer" size={30} /></Link>}
+                        {user.socialIds.twitter && <Link target="_blank" href={user.socialIds.twitter}><RiTwitterXLine className="cursor-pointer" size={28} /></Link>}
+                        {user.socialIds.facebook && <Link target="_blank" href={user.socialIds.facebook}><CiFacebook className="cursor-pointer" size={30} /></Link>}
+                    </div>
+                }
             </div>
             <div className='flex flex-col gap-1 mt-4'>
                 <div>

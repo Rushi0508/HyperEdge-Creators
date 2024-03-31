@@ -8,6 +8,7 @@ import Loading from './loading';
 import { Progress } from '@/components/ui/progress';
 import { calculateProfileCompletion } from '@/app/actions/calculateProfileCompletion';
 import PaymentCard from './components/PaymentCard';
+import SocialCard from './components/SocialCard';
 
 function page() {
   const [dataLoading, setDataLoading] = useState(true);
@@ -44,7 +45,10 @@ function page() {
           visible == "2" && <ProfessionalCard setVisible={setVisible} setProgress={setProgress} user={user} />
         }
         {
-          visible == "3" && <PaymentCard setVisible={setVisible} setProgress={setProgress} user={user} />
+          visible == "3" && <SocialCard setVisible={setVisible} setProgress={setProgress} user={user} />
+        }
+        {
+          visible == "4" && <PaymentCard setVisible={setVisible} setProgress={setProgress} user={user} />
         }
       </div>
     </>

@@ -43,8 +43,7 @@ model Creator {
   state           String?
   country         String?
 
-  socialIds         String[]        @db.ObjectId
-  socials           SocialLinks[]
+  socialIds         Json?
   availability      Boolean?
   campaignInviteIds String[]        @db.ObjectId
   campaignInvites   Campaign[]      @relation(fields: [campaignInviteIds], references: [id])
@@ -56,17 +55,6 @@ model Creator {
   stripeAccountId   String?
   Chat              Chat[]
   payments          Payment[]
-}
-
-model SocialLinks {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  creator   Creator  @relation(fields: [creatorId], references: [id])
-  creatorId String   @db.ObjectId
-  instagram String?
-  youtube   String?
-  twitter   String?
-  facebook  String?
-  createdAt DateTime @default(now())
 }
 
 model UserVerification {
