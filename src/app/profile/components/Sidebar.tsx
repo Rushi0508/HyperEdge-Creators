@@ -19,13 +19,14 @@ function Sidebar({ user }: any) {
             <div className='mt-4'>
                 <p className='font-semibold'>Social Accounts</p>
                 {
-                    user.socialIds &&
-                    <div className='flex items-center gap-2'>
-                        {user.socialIds.instagram && <Link target="_blank" href={user.socialIds.instagram}><FaInstagram className="cursor-pointer" size={30} /></Link>}
-                        {user.socialIds.youtube && <Link target="_blank" href={user.socialIds.youtube}><FaYoutube className="cursor-pointer" size={30} /></Link>}
-                        {user.socialIds.twitter && <Link target="_blank" href={user.socialIds.twitter}><RiTwitterXLine className="cursor-pointer" size={28} /></Link>}
-                        {user.socialIds.facebook && <Link target="_blank" href={user.socialIds.facebook}><CiFacebook className="cursor-pointer" size={30} /></Link>}
-                    </div>
+                    user.socialIds ?
+                        <div className='flex items-center gap-2'>
+                            {user.socialIds.instagram && <Link target="_blank" href={user.socialIds.instagram}><FaInstagram className="cursor-pointer" size={30} /></Link>}
+                            {user.socialIds.youtube && <Link target="_blank" href={user.socialIds.youtube}><FaYoutube className="cursor-pointer" size={30} /></Link>}
+                            {user.socialIds.twitter && <Link target="_blank" href={user.socialIds.twitter}><RiTwitterXLine className="cursor-pointer" size={28} /></Link>}
+                            {user.socialIds.facebook && <Link target="_blank" href={user.socialIds.facebook}><CiFacebook className="cursor-pointer" size={30} /></Link>}
+                        </div> :
+                        <p className='text-gray-500'>No accounts added</p>
                 }
             </div>
             <div className='flex flex-col gap-1 mt-4'>
