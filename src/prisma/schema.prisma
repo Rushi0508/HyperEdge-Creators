@@ -88,19 +88,21 @@ model Collaboration {
   campaignId String              @db.ObjectId
   status     CollaborationStatus
   rating     Int?
-  paymentId  String?
+  paymentId  String?             @db.ObjectId
+  payment    Payment?            @relation(fields: [paymentId], references: [id])
   createdAt  DateTime            @default(now())
 }
 
 model Payment {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  paymentId String
-  brand     Brand    @relation(fields: [brandId], references: [id])
-  brandId   String   @db.ObjectId
-  creator   Creator  @relation(fields: [creatorId], references: [id])
-  creatorId String   @db.ObjectId
-  amount    Int
-  createdAt DateTime @default(now())
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  paymentId     String
+  brand         Brand           @relation(fields: [brandId], references: [id])
+  brandId       String          @db.ObjectId
+  creator       Creator         @relation(fields: [creatorId], references: [id])
+  creatorId     String          @db.ObjectId
+  amount        Int
+  createdAt     DateTime        @default(now())
+  collaboration Collaboration[]
 }
 
 enum CollaborationStatus {
