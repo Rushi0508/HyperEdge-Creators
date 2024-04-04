@@ -44,7 +44,7 @@ function PaymentCard({ setVisible, user, setProgress }: any) {
                     user.stripeAccountId && <p>You have setted up the stripe account. Here is your account id <span className='font-bold'>{user.stripeAccountId}</span></p>
                 }
                 <div className='flex gap-1 justify-end'>
-                    <Button onClick={() => setVisible("2")} disabled={isLoading} variant={'link'}><ChevronLeftIcon className='h-5 w-5' />Back</Button>
+                    <Button onClick={() => setVisible("3")} disabled={isLoading} variant={'link'}><ChevronLeftIcon className='h-5 w-5' />Back</Button>
 
                 </div>
             </CardContent>

@@ -14,8 +14,8 @@ function Collaborations({ user }: any) {
                 {user?.collaborations && user?.collaborations.length > 0 ?
                     <>
                         <Carousel className='mt-3 whitespace-nowrap mx-4'>
-                            {user.collaborations.map((c: any, index: any) => (
-                                <CarouselContent>
+                            <CarouselContent>
+                                {user.collaborations.map((c: any, index: any) => (
                                     <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/2">
                                         <Card>
                                             <CardHeader className='flex gap-4 flex-row'>
@@ -25,15 +25,15 @@ function Collaborations({ user }: any) {
                                                 </Avatar>
                                                 <div>
                                                     <CardTitle>
-                                                        <p>{c.campaign.name.length > 30 ? c.campaign.name.substring(0, 30) + '...' : c.campaign.name}</p>
+                                                        <p>{c.campaign.name.length > 25 ? c.campaign.name.substring(0, 25) + '...' : c.campaign.name}</p>
                                                     </CardTitle>
                                                     <CardDescription>by <span>{c.creator.fullName}</span></CardDescription>
                                                 </div>
                                             </CardHeader>
                                         </Card>
                                     </CarouselItem>
-                                </CarouselContent>
-                            ))}
+                                ))}
+                            </CarouselContent>
                             <CarouselPrevious />
                             <CarouselNext />
                         </Carousel>

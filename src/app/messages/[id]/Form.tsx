@@ -27,7 +27,7 @@ const Form = ({ chat }: any) => {
             content: data.message,
             chatId: chat.id,
             senderId: user.data.user.id,
-            createdAt: serverTimestamp()
+            createdAt: await serverTimestamp()
         })
         // await axios.post('/api/add-message', {
         //     content: data.message,
@@ -61,6 +61,7 @@ const Form = ({ chat }: any) => {
         gap-2 
         lg:gap-4 
         w-[75%]
+        right-0
       "
         >
             <form
