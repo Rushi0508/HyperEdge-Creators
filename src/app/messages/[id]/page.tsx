@@ -25,7 +25,6 @@ function ChatBody({ params }: { params: { id: string } }) {
                 const messagesData = snapshot.docs.map((doc) => ({
                     ...doc.data()
                 }));
-                console.log(messagesData)
                 setMessages(messagesData);
             })
             return unsubscribe;
