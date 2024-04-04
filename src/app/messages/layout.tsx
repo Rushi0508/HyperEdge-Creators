@@ -27,10 +27,10 @@ function layout({ children }: { children: React.ReactNode }) {
             <Navbar />
             <div className='max-w-screen-2xl mx-auto'>
                 <div className='flex'>
-                    <div className='w-[25%] border-r-[1px] border-gray-100 relative'>
+                    <div className='w-[25%] relative'>
                         <ChatList pageLoading={pageLoading} chats={chats} />
                     </div>
-                    <div className='w-[75%]'>
+                    <div className='w-[75%] relative'>
                         {children}
                     </div>
                 </div>

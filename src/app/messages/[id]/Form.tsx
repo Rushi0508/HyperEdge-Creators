@@ -61,6 +61,7 @@ const Form = ({ chat }: any) => {
         gap-2 
         lg:gap-4 
         w-[75%]
+        right-0
       "
         >
             <form

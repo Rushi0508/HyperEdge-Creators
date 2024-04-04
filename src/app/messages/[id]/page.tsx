@@ -60,7 +60,7 @@ function ChatBody({ params }: { params: { id: string } }) {
         pageLoading ? <Loading /> :
             <div>
                 <ChatHeader chat={chat} />
-                <div className="flex-1 overflow-y-auto">
+                <div className="flex-1 fixed top-[120px] bottom-0 right-0 w-[75%] overflow-y-auto">
                     {
                         messages?.map((message: any, i: any) => (
                             <MessageBox
