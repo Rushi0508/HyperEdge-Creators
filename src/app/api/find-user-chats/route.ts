@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
-export async function GET() {
+export async function POST() {
   try {
     const user = await getCurrentUser();
     const chats = await prisma.chat.findMany({
