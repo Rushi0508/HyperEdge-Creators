@@ -11,7 +11,7 @@ function layout({ children }: { children: React.ReactNode }) {
     const [pageLoading, setPageLoading] = useState(true)
     const getUserChats = async () => {
         try {
-            const { data } = await axios.get('/api/find-user-chats');
+            const { data } = await axios.post('/api/find-user-chats');
             setChats(data.chats);
         } catch (e) {
             toast.error("Cannot load chats");
