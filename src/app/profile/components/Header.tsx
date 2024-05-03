@@ -67,7 +67,7 @@ function Header({ user, setUser }: any) {
           <input disabled={uploading} hidden id='logo' onChange={handleImageUpload} type='file' accept='image/jpg, image/png, image/jpeg' />
         </div>
         <div>
-          <p className="font-semibold text-3xl flex items-center gap-2">{user?.fullName} <span className='text-sm bg-black text-white rounded-sm py-1 px-2'>{user?.ratings}⭐</span></p>
+          <p className="font-semibold text-3xl flex items-center gap-2">{user?.fullName} <span className='text-sm bg-black text-white rounded-sm py-1 px-2'>{user.ratings ? user?.ratings.toFixed(1) : 0}⭐</span></p>
           <span className="flex items-center mt-1 text-gray-500"><SewingPinIcon className='w-5 h-5' />{user?.state}, {user?.country}</span>
         </div>
       </div>
