@@ -86,7 +86,7 @@ export default function page() {
                         {total && <TableFooter>
                             <TableRow className="font-bold">
                                 <TableCell colSpan={3}>Total</TableCell>
-                                <TableCell className="text-right">${total}</TableCell>
+                                <TableCell className="text-right">${total / 100}</TableCell>
                             </TableRow>
                         </TableFooter>}
                     </Table>}
